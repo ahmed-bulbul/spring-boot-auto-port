@@ -1,0 +1,29 @@
+{
+  "groups": [
+    {
+      "name": "auto.port",
+      "description": "Spring Boot Auto Port configuration."
+    }
+  ],
+  "properties": [
+    {
+      "name": "auto.port.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable automatic port selection when the configured port is occupied.",
+      "defaultValue": true
+    },
+    {
+      "name": "auto.port.start",
+      "type": "java.lang.Integer",
+      "description": "Base port to try when server.port is not explicitly set. Scanning begins here.",
+      "defaultValue": 8080
+    },
+    {
+      "name": "auto.port.max",
+      "type": "java.lang.Integer",
+      "description": "Upper bound (inclusive) of the port scan range. An error is thrown if no port is found below this value.",
+      "defaultValue": 9000
+    }
+  ],
+  "hints": []
+}
