@@ -1,6 +1,7 @@
 package io.github.ahmedbulbul.autoport.core;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
 public final class PortScanner {
@@ -37,8 +38,11 @@ public final class PortScanner {
      * Returns {@code true} if the given port can be bound on the local machine.
      */
     public static boolean isPortAvailable(int port) {
-        try (ServerSocket socket = new ServerSocket(port)) {
-            socket.setReuseAddress(true);
+        try (ServerSocket socket = new ServerSocket()) {
+            // setReuseAddress must be called BEFORE bind to have effect (per Java docs).
+            // Using false so we don't claim a port that is still in TIME_WAIT.
+            socket.setReuseAddress(false);
+            socket.bind(new InetSocketAddress(port), 1);
             return true;
         } catch (IOException e) {
             return false;
